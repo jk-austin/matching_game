@@ -1,26 +1,26 @@
 [
     {
-        "image": "../images/Ace",
+        "image": "../images/Ace.png",
         "name": "Ace"
     },
     {
-        "image": "../images/King",
+        "image": "../images/King.png",
         "name": "King"
     },
     {
-        "image": "../images/Queen",
+        "image": "../images/Queen.png",
         "name": "Queen"
     },
     {
-        "image": "../images/Jack",
+        "image": "../images/Jack.png",
         "name": "Jack"
     },
     {
-        "image": "../images/10",
+        "image": "../images/10.png",
         "name": "10"
     },
     {
-        "image": "../images/9",
+        "image": "../images/9.png",
         "name": "9"
     }
 ]
