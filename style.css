@@ -3,7 +3,7 @@
     --card-width: calc(1000/6 * 1px);
     --card-height: calc(var(--card-width) * 1.5)
 }
-
+ 
 body {
     text-align: center;
     background-color: #f0f0f0;
