@@ -1,5 +1,26 @@
 [
     {
-        "image": 
+        "image": "../images/Ace",
+        "name": "Ace"
+    },
+    {
+        "image": "../images/King",
+        "name": "King"
+    },
+    {
+        "image": "../images/Queen",
+        "name": "Queen"
+    },
+    {
+        "image": "../images/Jack",
+        "name": "Jack"
+    },
+    {
+        "image": "../images/10",
+        "name": "10"
+    },
+    {
+        "image": "../images/9",
+        "name": "9"
     }
 ]
