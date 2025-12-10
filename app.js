@@ -1,5 +1,6 @@
 // initialize card variables
 let cards = [];
+let cardTable = document.querySelector(".card-table");
 
 // Fetch JSON Data (rather than with async function)
 fetch("./data/card_info.json")
@@ -39,4 +40,60 @@ fetch("./data/card_info.json")
 //}
 
 function dealCards(cards) {
-}
+    console.log("Dealing Cards... good luck!");
+        // fragment for option B, below
+    let fragment = document.createDocumentFragment();
+    for (const card of cards) {
+        // option A: create directly
+
+        // create the card wrapper:
+        // let cardElement = document.createElement("div");
+        // cardElement.classList.add("card");
+        // cardElement.setAttribute("data-name", card.name);
+        // // create the front face and back face
+        // cardElement.innerHTML = `
+        //     <div class="card-front">
+        //         <img class="back-image" src="${card.image}" alt="${card.name}">
+        //     </div>
+        //     <div class="card-back"></div>
+        // `;
+        // // append to the game board
+        // cardTable.appendChild(cardElement);
+
+        // option B: create using fragments
+        //using fragments to minimize reflows (using append may trigger
+        // multiple reflows which is inefficient)
+        const cardElement = document.createElement("div");
+        cardElement.classList.add("card");
+        cardElement.setAttribute("data-name", card.name);
+        
+        // create the front face and back face
+        const frontCardDiv = document.createElement("div");
+        frontCardDiv.classList.add("card-front");
+        const backCardDiv = document.createElement("div");
+        backCardDiv.classList.add("card-back");
+        
+        // add front image element
+        const frontImg = document.createElement("img");
+        frontImg.src = `${card.image}`;
+        frontImg.alt = `${card.name}`;
+        frontCardDiv.appendChild(frontImg);
+        
+        // For the back (same for all cards)
+        const backImg = document.createElement("img");
+        backImg.src = "../images/cardBack.png";  // hardcoded
+        backImg.alt = "Card back";
+        backCardDiv.appendChild(backImg);
+
+        // append front and back to card element
+        cardElement.appendChild(backCardDiv);
+        cardElement.appendChild(frontCardDiv);
+        // append card element to fragment
+        fragment.appendChild(cardElement);
+
+    } // end for loop
+
+    // append fragment to card table in the DOM
+    cardTable.appendChild(fragment);
+
+} // end dealCards
