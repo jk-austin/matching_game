@@ -1,17 +1,17 @@
-:root {
-   /*defining global variables must use double -*/
+:root { /* colon only a selector in CSS */
+   /* defining global variables in CSS must use double - */
     --card-width: calc(1000/6 * 1px);
-    --card-height: calc(var(--card-width) * 1.5)
+    --card-height: calc(var(--card-width) * 1.5);
 }
  
 body {
     text-align: center;
     background-color: #f0f0f0;
-    color: rgb(13, 13, 13)
+    color: rgb(17, 17, 17)
 }
 
 h1 {
-    font-size: 3rem; 
+    font-size: 3rem; /* rem = Root element, relative to root font size */
 }
 
 p {
@@ -23,7 +23,10 @@ p {
     display: grid;
     grid-template-columns: repeat(6, var(--card-width));
     grid-template-rows: repeat(2, var(--card-height));
+    
+    /* center the content left to right */
     justify-content: center;
-    /*set soacing between grid items*/
+
+    /*set spacing between grid items*/
     grid-gap: 1rem;
 }
