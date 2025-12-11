@@ -49,7 +49,7 @@ img.back-image {
     height: auto;   
 }
 
-card-back,
+.card-back,
 .card-front {
     position: absolute;
     top: 0;

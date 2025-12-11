@@ -81,7 +81,7 @@ function dealCards(cards) {
         
         // For the back (same for all cards)
         const backImg = document.createElement("img");
-        backImg.src = "../images/cardBack.png";  // hardcoded
+        backImg.src = "./images/cardBack.png";  // hardcoded
         backImg.alt = "Card back";
         backCardDiv.appendChild(backImg);
 
