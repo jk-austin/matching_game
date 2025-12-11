@@ -16,7 +16,10 @@ fetch("./data/card_info.json")
 
         // option C with spread operator, unpacks array into new array ...
         cards = [...data, ...data];
-
+        
+        // shuffle cards
+        cards = shuffle(cards);
+        
         // deal cards
         dealCards(cards);
 
@@ -25,6 +28,35 @@ fetch("./data/card_info.json")
     .catch((error) => {
         console.log("Error fetching card data:", error);
     }); // end fetch
+
+    // define shuffle function with Fisher-Yates algorithm
+    function shuffle(array) {
+        // create a copy of the array to avoid mutating the original
+        let shuffledCardsArray = [...cards];
+        let totalCards = shuffledCardsArray.length;
+        let currentIndex = totalCards - 1;
+
+        // option 1 — loop through elements from last to first
+        for(currentIndex; currentIndex > 0; currentIndex--) {
+            // generate random index
+            let randomCardIndex = Math.floor(Math.random() * (currentIndex + 1));
+            
+            // swap elements at currentIndex and randomCardIndex
+            let randomCard = shuffledCardsArray[randomCardIndex];
+            console.log("Random Card:", randomCard);
+
+            // replace random card with current card
+            shuffledCardsArray[randomCardIndex] = shuffledCardsArray[currentIndex];
+            console.log("shuffledCardsArrayStep1: ", [...shuffledCardsArray]);
+
+            // replace current card with random card
+            shuffledCardsArray[currentIndex] = randomCard;
+            console.log("shuffledCardsArrayStep2: ", [...shuffledCardsArray]);
+        };
+
+        return shuffledCardsArray;
+    }; // end shuffle function
+
 
 // implement the Fetch API to grab the card JSON file
 // async function loadCards() {
