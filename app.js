@@ -96,4 +96,18 @@ function dealCards(cards) {
     // append fragment to card table in the DOM
     cardTable.appendChild(fragment);
 
+    // attach event listeners to cards after they are dealt
+    const dealtCards = document.querySelectorAll(".card");
+    dealtCards.forEach(card => {
+        card.addEventListener("click", flipCard);
+        });
+
+
 } // end dealCards
+
+function flipCard() {
+    console.log(this);
+    // add flipped class to this card
+    this.classList.add("flipped");
+    
+}
