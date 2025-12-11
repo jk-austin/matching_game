@@ -19,7 +19,7 @@ fetch("./data/card_info.json")
         
         // shuffle cards
         cards = shuffle(cards);
-        
+
         // deal cards
         dealCards(cards);
 
@@ -37,21 +37,31 @@ fetch("./data/card_info.json")
         let currentIndex = totalCards - 1;
 
         // option 1 — loop through elements from last to first
-        for(currentIndex; currentIndex > 0; currentIndex--) {
+        //for(currentIndex; currentIndex > 0; currentIndex--) {
+        //    // generate random index
+        //    let randomCardIndex = Math.floor(Math.random() * (currentIndex + 1));
+        //    
+        //    // swap elements at currentIndex and randomCardIndex
+        //    let randomCard = shuffledCardsArray[randomCardIndex];
+        //    console.log("Random Card:", randomCard);
+//
+        //    // replace random card with current card
+        //    shuffledCardsArray[randomCardIndex] = shuffledCardsArray[currentIndex];
+        //    console.log("shuffledCardsArrayStep1: ", [...shuffledCardsArray]);
+//
+        //    // replace current card with random card
+        //    shuffledCardsArray[currentIndex] = randomCard;
+        //    console.log("shuffledCardsArrayStep2: ", [...shuffledCardsArray]);
+        
+        // option 2 swap elements using destructuring assignment
+        for (currentIndex; currentIndex > 0; currentIndex--) {
             // generate random index
             let randomCardIndex = Math.floor(Math.random() * (currentIndex + 1));
             
-            // swap elements at currentIndex and randomCardIndex
-            let randomCard = shuffledCardsArray[randomCardIndex];
-            console.log("Random Card:", randomCard);
+            // swap using destructuring assignment
+            [shuffledCardsArray[currentIndex], shuffledCardsArray[randomCardIndex]] =
+                [shuffledCardsArray[randomCardIndex], shuffledCardsArray[currentIndex]];
 
-            // replace random card with current card
-            shuffledCardsArray[randomCardIndex] = shuffledCardsArray[currentIndex];
-            console.log("shuffledCardsArrayStep1: ", [...shuffledCardsArray]);
-
-            // replace current card with random card
-            shuffledCardsArray[currentIndex] = randomCard;
-            console.log("shuffledCardsArrayStep2: ", [...shuffledCardsArray]);
         };
 
         return shuffledCardsArray;
