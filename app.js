@@ -4,6 +4,15 @@ let cardTable = document.querySelector(".card-table");
 firstCard = null;
 secondCard = null;
 let noFlipping = false;
+let triesRemaining = 5; // set number of tries
+
+// display tries remaining in the DOM
+// option A: using querySelector
+let counter = document.querySelector(".tries-remaining");
+counter.textContent = triesRemaining;
+
+// option B: using getElementsByClassName
+//document.getElementsByClassName("tries-remaining")[0].textContent = triesRemaining;
 
 // Fetch JSON Data (rather than with async function)
 fetch("./data/card_info.json")
@@ -176,13 +185,22 @@ function checkForMatch() {
 
 function unflipCards() {
     // wait 1 second, then remove flipped class from both cards
-    setTimeout(() => {    
-    firstCard.classList.remove("flipped");
-    secondCard.classList.remove("flipped");
-    firstCard.addEventListener("click", flipCard);
-    secondCard.addEventListener("click", flipCard);
-    // reset flags
-    resetFlags();
+    setTimeout(() => {
+        // check if player has lost the game
+        --triesRemaining;
+        counter.textContent = triesRemaining;
+        if (triesRemaining <= 0) {
+            alert("Sadly, you lost the game. Better luck next time!");
+            showLosingImage();
+            // Optionally, reset the game or disable further play here
+            return;
+        }
+        firstCard.classList.remove("flipped");
+        secondCard.classList.remove("flipped");
+        firstCard.addEventListener("click", flipCard);
+        secondCard.addEventListener("click", flipCard);
+        // reset flags
+        resetFlags();
     }, 1000);
 }; // end unflipCards 
 
@@ -206,3 +224,22 @@ function matchCards() {
     // reset flags to continue play
     resetFlags();
 }; // end matchCards
+
+function showLosingImage() {
+    //  create a div wrapper for the losing image
+    let wrapper = document.createElement("div");
+    // add class for css styling
+    wrapper.classList.add("losing-image-wrapper");
+    // create the image element
+    let losingImage = document.createElement("img");
+    losingImage.src = "./images/youLose.png";
+    losingImage.alt = "You Lose!";
+    // append image to wrapper
+    wrapper.appendChild(losingImage);
+    // append wrapper to body
+    document.body.appendChild(wrapper);
+
+
+
+
+}; // end showLosingImage
