@@ -1,6 +1,9 @@
 // initialize card variables
 let cards = [];
 let cardTable = document.querySelector(".card-table");
+firstCard = null;
+secondCard = null;
+let noFlipping = false;
 
 // Fetch JSON Data (rather than with async function)
 fetch("./data/card_info.json")
@@ -52,7 +55,7 @@ fetch("./data/card_info.json")
         //    // replace current card with random card
         //    shuffledCardsArray[currentIndex] = randomCard;
         //    console.log("shuffledCardsArrayStep2: ", [...shuffledCardsArray]);
-        
+
         // option 2 swap elements using destructuring assignment
         for (currentIndex; currentIndex > 0; currentIndex--) {
             // generate random index
@@ -148,8 +151,59 @@ function dealCards(cards) {
 } // end dealCards
 
 function flipCard() {
-    console.log(this);
+    if(noFlipping) return; // prevent flipping when two cards are being compared
+
     // add flipped class to this card
     this.classList.add("flipped");
     
-}
+    if(!firstCard) {
+        firstCard = this;
+        console.log("firstCard: ", firstCard);
+        return; // exit function and await second card
+    }
+    secondCard = this;
+    console.log("secondCard: ", secondCard);
+
+    // prevent further flipping until match check is complete
+    noFlipping = true;
+
+    // check for match
+    checkForMatch();
+
+}; // end flipCard
+
+function checkForMatch() {
+    // compare data-name attributes of firstCard and secondCard
+    let isMatch = (firstCard.dataset.name === secondCard.dataset.name); 
+    console.log("isMatch: ", isMatch);
+    
+    // could instead use this with an if statement:
+    // let firstCardName = firstCard.dataset.name;
+    // let secondCardName = secondCard.dataset.name;
+    // if(firstCardName === secondCardName) {... etc
+
+    // using ternary operator to call appropriate function
+    isMatch ? matchCards() : unflipCards();
+    
+
+}; // end checkForMatch
+
+function unflipCards() {
+    // wait 1 second, then remove flipped class from both cards
+    setTimeout(() => {    
+    firstCard.classList.remove("flipped");
+    secondCard.classList.remove("flipped");
+    resetFlags();
+    }, 1000);
+}; // end unflipCards 
+
+function resetFlags() {
+    // reset firstCard, secondCard, and noFlipping flag
+    firstCard = null;
+    secondCard = null;
+    noFlipping = false; // allow unmatched cards to be flipped
+}; // end resetFlags
+
+function matchCards() {
+
+}; // end matchCards
