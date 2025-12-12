@@ -89,23 +89,6 @@ function dealCards(cards) {
         // fragment for option B, below
     let fragment = document.createDocumentFragment();
     for (const card of cards) {
-        // option A: create directly
-
-        // create the card wrapper:
-        // let cardElement = document.createElement("div");
-        // cardElement.classList.add("card");
-        // cardElement.setAttribute("data-name", card.name);
-        // // create the front face and back face
-        // cardElement.innerHTML = `
-        //     <div class="card-front">
-        //         <img class="back-image" src="${card.image}" alt="${card.name}">
-        //     </div>
-        //     <div class="card-back"></div>
-        // `;
-        // // append to the game board
-        // cardTable.appendChild(cardElement);
-
-        // option B: create using fragments
         //using fragments to minimize reflows (using append may trigger
         // multiple reflows which is inefficient)
         const cardElement = document.createElement("div");
@@ -133,7 +116,7 @@ function dealCards(cards) {
         // append front and back to card element
         cardElement.appendChild(backCardDiv);
         cardElement.appendChild(frontCardDiv);
-        // append card element to fragment
+        // attach card element to fragment
         fragment.appendChild(cardElement);
 
     } // end for loop
@@ -159,6 +142,9 @@ function flipCard() {
     if(!firstCard) {
         firstCard = this;
         console.log("firstCard: ", firstCard);
+
+        // prevent clicking the same card twice:
+        firstCard.removeEventListener("click", flipCard);
         return; // exit function and await second card
     }
     secondCard = this;
@@ -193,6 +179,9 @@ function unflipCards() {
     setTimeout(() => {    
     firstCard.classList.remove("flipped");
     secondCard.classList.remove("flipped");
+    firstCard.addEventListener("click", flipCard);
+    secondCard.addEventListener("click", flipCard);
+    // reset flags
     resetFlags();
     }, 1000);
 }; // end unflipCards 
@@ -205,5 +194,15 @@ function resetFlags() {
 }; // end resetFlags
 
 function matchCards() {
-
+    console.log("It's a match!");
+    // remove event listeners from both matched cards
+    firstCard.removeEventListener("click", flipCard);
+    secondCard.removeEventListener("click", flipCard);
+    
+    // add a new appearance effect for matched cards
+    firstCard.classList.add("matched");
+    secondCard.classList.add("matched");
+    
+    // reset flags to continue play
+    resetFlags();
 }; // end matchCards
