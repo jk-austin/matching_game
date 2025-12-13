@@ -4,7 +4,7 @@ let cardTable = document.querySelector(".card-table");
 firstCard = null;
 secondCard = null;
 let noFlipping = false;
-let triesRemaining = 5; // set number of tries
+let triesRemaining = 2; // set number of tries
 
 // display tries remaining in the DOM
 // option A: using querySelector
@@ -239,4 +239,22 @@ function showLosingImage() {
     wrapper.appendChild(losingImage);
     // append wrapper to DOM body
     document.body.appendChild(wrapper);
+    // transition opacity for fade-in effect
+    requestAnimationFrame(() => {
+        wrapper.style.opacity = 1;
+    })
+    // add button and functionality to reset the game
+    let resetButton = document.createElement("button");
+
+    // set button text and class
+    resetButton.textContent = "Play Again";
+    resetButton.classList.add("reset-button");
+
+    wrapper.appendChild(resetButton);
+    resetButton.addEventListener("click", () => {
+        // remove losing image wrapper from DOM
+        document.body.removeChild(wrapper);
+        // reset game state
+        location.reload(); // simple way to reset the game
+    });
 }; // end showLosingImage
