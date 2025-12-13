@@ -232,14 +232,11 @@ function showLosingImage() {
     wrapper.classList.add("losing-image-wrapper");
     // create the image element
     let losingImage = document.createElement("img");
+    // set image source and alt text
     losingImage.src = "./images/youLose.png";
     losingImage.alt = "You Lose!";
     // append image to wrapper
     wrapper.appendChild(losingImage);
-    // append wrapper to body
+    // append wrapper to DOM body
     document.body.appendChild(wrapper);
-
-
-
-
 }; // end showLosingImage
