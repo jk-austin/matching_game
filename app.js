@@ -4,7 +4,7 @@ let cardTable = document.querySelector(".card-table");
 firstCard = null;
 secondCard = null;
 let noFlipping = false;
-let triesRemaining = 2; // set number of tries
+let triesRemaining = 5; // set number of tries
 
 // display tries remaining in the DOM
 // option A: using querySelector
@@ -190,7 +190,7 @@ function unflipCards() {
         --triesRemaining;
         counter.textContent = triesRemaining;
         if (triesRemaining <= 0) {
-            alert("Sadly, you lost the game. Better luck next time!");
+            // alert("Sadly, you lost the game. Better luck next time!");
             showLosingImage();
             // Optionally, reset the game or disable further play here
             return;
@@ -258,3 +258,27 @@ function showLosingImage() {
         location.reload(); // simple way to reset the game
     });
 }; // end showLosingImage
+
+function createStars() {
+    // create star div element
+    let star = document.createElement("div");
+    star.classList.add("star");
+    // style the stars
+        // set random horizontal position
+    let randomX = Math.random() * window.innerWidth;
+    star.style.left = `${randomX}px`;
+        // set random animation duration between 2 and 5 seconds
+    let duration = Math.random() * 3 + 2;
+    star.style.animationDuration = `${duration}s`;
+        // set random size between 5px and 20px
+    let size = Math.random() * 15 + 5;
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    // append star to star-wrapper div
+    document.querySelector(".star-wrapper").appendChild(star);
+    // remove star after animation completes to prevent DOM overload
+    star.addEventListener("animationend", () => {
+        star.parentNode.removeChild(star);
+    });
+
+}; // end createStars
