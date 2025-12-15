@@ -80,7 +80,7 @@ img.back-image {
 }
 
 /* losing image styles */
-.losing-image-wrapper {
+.losing-image-wrapper, .winning-image-wrapper {
     position: fixed;
     top: 0;
     left: 0;
@@ -95,7 +95,7 @@ img.back-image {
     transition: opacity 1s ease;
 }
 
-.losing-image-wrapper img {
+.losing-image-wrapper, .winning-image-wrapper img {
     max-width: 75%;
     max-height: auto;
     margin-top: 5%;

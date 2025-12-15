@@ -232,7 +232,40 @@ function matchCards() {
 }; // end matchCards
 
 function showWinningImage() {
+    //  create a div wrapper for the losing image
+    let wrapper = document.createElement("div");
+    // add class for css styling
+    wrapper.classList.add("winning-image-wrapper");
+    // create the image element
+    let winningImage = document.createElement("img");
+    // set image source and alt text
+    losingImage.src = "./images/youWin.png";
+    losingImage.alt = "You Win!";
+    // append image to wrapper
+    wrapper.appendChild(winningImage);
+    // append wrapper to DOM body
+    document.body.appendChild(wrapper);
+    // transition opacity for fade-in effect
+    requestAnimationFrame(() => {
+        wrapper.style.opacity = 1;
+    })
+    // add button and functionality to reset the game
+    let resetButton = document.createElement("button");
 
+    // set button text and class
+    resetButton.textContent = "Play Again";
+    resetButton.classList.add("reset-button");
+
+    wrapper.appendChild(resetButton);
+    resetButton.addEventListener("click", () => {
+        // remove losing image wrapper from DOM
+        document.body.removeChild(wrapper);
+
+        wrapper.style.opacity = 1;
+
+        // reset game state
+        location.reload(); // simple way to reset the game
+    });
 }
 
 function showLosingImage() {
