@@ -4,7 +4,8 @@ let cardTable = document.querySelector(".card-table");
 firstCard = null;
 secondCard = null;
 let noFlipping = false;
-let triesRemaining = 5; // set number of tries
+let triesRemaining = 6; // set number of tries
+let winCounter = null; // update on each card match
 
 // display tries remaining in the DOM
 // option A: using querySelector
@@ -18,6 +19,8 @@ counter.textContent = triesRemaining;
 fetch("./data/card_info.json")
     .then(response => response.json())  // parse JSON data
     .then((data) => {
+        winCounter = data.length; // set winCounter to number of unique cards
+
         // option A using MAP
         // const cardsWithMap = data.map(card => [card, card]).flat();;
         // console.log("Cards with Map:", cardsWithMap);
@@ -78,21 +81,7 @@ fetch("./data/card_info.json")
 
         return shuffledCardsArray;
     }; // end shuffle function
-
-
-// implement the Fetch API to grab the card JSON file
-// async function loadCards() {
-//    try {
-//        // fetch the JSON file
-//        let response = await fetch("./data/card_info.json");
-//        // parse the JSON file
-//        let cardsArray = await response.json();
-//        console.log(cardsArray);
-//    } catch (error) {
-//        console.log(error);
-//    }
-//}
-
+    
 function dealCards(cards) {
     console.log("Dealing Cards... good luck!");
         // fragment for option B, below
@@ -150,14 +139,12 @@ function flipCard() {
     
     if(!firstCard) {
         firstCard = this;
-        console.log("firstCard: ", firstCard);
 
         // prevent clicking the same card twice:
         firstCard.removeEventListener("click", flipCard);
         return; // exit function and await second card
     }
     secondCard = this;
-    console.log("secondCard: ", secondCard);
 
     // prevent further flipping until match check is complete
     noFlipping = true;
@@ -212,7 +199,26 @@ function resetFlags() {
 }; // end resetFlags
 
 function matchCards() {
+    // log match to console
     console.log("It's a match!");
+
+    // decrement winCounter
+    --winCounter;
+    console.log("winCounter: ", winCounter);
+
+    // check for win condition
+    if (winCounter === 0) {
+        setTimeout(() => {
+            alert("Congratulations! You've matched all the cards and won the game!");
+            // create stars at intervals
+            let starInterval = setInterval(createStar, 300);
+            // stop creating stars after 10 seconds
+            setTimeout(() => {
+                clearInterval(starInterval);
+            }, 5000);
+        }, 1000);
+    };
+
     // remove event listeners from both matched cards
     firstCard.removeEventListener("click", flipCard);
     secondCard.removeEventListener("click", flipCard);
@@ -224,6 +230,10 @@ function matchCards() {
     // reset flags to continue play
     resetFlags();
 }; // end matchCards
+
+function showWinningImage() {
+
+}
 
 function showLosingImage() {
     //  create a div wrapper for the losing image
@@ -254,12 +264,15 @@ function showLosingImage() {
     resetButton.addEventListener("click", () => {
         // remove losing image wrapper from DOM
         document.body.removeChild(wrapper);
+
+        wrapper.style.opacity = 1;
+
         // reset game state
         location.reload(); // simple way to reset the game
     });
 }; // end showLosingImage
 
-function createStars() {
+function createStar() {
     // create star div element
     let star = document.createElement("div");
     star.classList.add("star");
@@ -267,18 +280,19 @@ function createStars() {
         // set random horizontal position
     let randomX = Math.random() * window.innerWidth;
     star.style.left = `${randomX}px`;
-        // set random animation duration between 2 and 5 seconds
-    let duration = Math.random() * 3 + 2;
+        // set random animation duration between 3 and 5 seconds
+    let duration = Math.random()*3 + 2;
     star.style.animationDuration = `${duration}s`;
         // set random size between 5px and 20px
     let size = Math.random() * 15 + 5;
     star.style.width = `${size}px`;
     star.style.height = `${size}px`;
     // append star to star-wrapper div
-    document.querySelector(".star-wrapper").appendChild(star);
+    document.getElementsByClassName("star-wrapper")[0].appendChild(star);
     // remove star after animation completes to prevent DOM overload
     star.addEventListener("animationend", () => {
         star.parentNode.removeChild(star);
     });
+
 
 }; // end createStars

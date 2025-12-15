@@ -92,7 +92,7 @@ img.back-image {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease;
 }
 
 .losing-image-wrapper img {
@@ -115,19 +115,38 @@ img.back-image {
 .reset-button:hover {
     background-color: darkorange;
 }
+
+/* starfield styles */
 .star-wrapper {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     pointer-events: none; /* THIS IS KEY - allows clicks through */
     z-index: 0;
 }
 
 .star {
     position: absolute;
-    background: white;
+    top: -10px;
+    width: 10px;
+    height: 10px;
+    background-color: rgb(240, 6, 6);
     border-radius: 50%;
     pointer-events: none;
+    opacity: 1; /* stars start fully visible */
+    animation: fall linear;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0);
+        opacity: 1; /* stars start fully visible */
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0; /* stars fade out as they fall */
+    }
+
 }
