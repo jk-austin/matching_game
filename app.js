@@ -247,10 +247,10 @@ function showWinningImage() {
     // append wrapper to DOM body
     document.body.appendChild(wrapper);
     
-    // transition opacity for fade-in effect
-    requestAnimationFrame(() => {
+    // small delay to allow for CSS transition
+    setTimeout(() => {
         wrapper.style.opacity = 1;
-    }); // added this missing ; to debug
+    }, 10);
 
     // add button and functionality to reset the game
     let resetButton = document.createElement("button");
