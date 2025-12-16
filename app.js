@@ -298,8 +298,6 @@ function showLosingImage() {
         // remove losing image wrapper from DOM
         document.body.removeChild(wrapper);
 
-        wrapper.style.opacity = 1;
-
         // reset game state
         location.reload(); // simple way to reset the game
     });
