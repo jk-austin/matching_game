@@ -209,9 +209,10 @@ function matchCards() {
     // check for win condition
     if (winCounter === 0) {
         setTimeout(() => {
-            alert("Congratulations! You've matched all the cards and won the game!");
+            // show youWin image
+            showWinningImage();
             // create stars at intervals
-            let starInterval = setInterval(createStar, 300);
+            let starInterval = setInterval(createStar, 100);
             // stop creating stars after 10 seconds
             setTimeout(() => {
                 clearInterval(starInterval);
@@ -239,16 +240,18 @@ function showWinningImage() {
     // create the image element
     let winningImage = document.createElement("img");
     // set image source and alt text
-    losingImage.src = "./images/youWin.png";
-    losingImage.alt = "You Win!";
+    winningImage.src = "./images/youWin.png";
+    winningImage.alt = "You Win!";
     // append image to wrapper
     wrapper.appendChild(winningImage);
     // append wrapper to DOM body
     document.body.appendChild(wrapper);
+    
     // transition opacity for fade-in effect
     requestAnimationFrame(() => {
         wrapper.style.opacity = 1;
-    })
+    }); // added this missing ; to debug
+
     // add button and functionality to reset the game
     let resetButton = document.createElement("button");
 
@@ -282,10 +285,12 @@ function showLosingImage() {
     wrapper.appendChild(losingImage);
     // append wrapper to DOM body
     document.body.appendChild(wrapper);
-    // transition opacity for fade-in effect
-    requestAnimationFrame(() => {
+    
+    // small delay to allow for CSS transition
+    setTimeout(() => {
         wrapper.style.opacity = 1;
-    })
+    }, 10);
+
     // add button and functionality to reset the game
     let resetButton = document.createElement("button");
 
