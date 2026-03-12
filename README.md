@@ -1,3 +1,4 @@
-Find the matching cards!
+A simple matching game showing vanilla JavaScript logic and CSS styling. 
 
-A simple matching game showing JavaScript logic and basic CSS styling. 
+[Live Demo](https://matching-game-liard-five.vercel.app/)
+
