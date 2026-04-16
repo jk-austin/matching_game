@@ -1,8 +1,8 @@
 // initialize card variables
 let cards = [];
 let cardTable = document.querySelector(".card-table");
-firstCard = null;
-secondCard = null;
+let firstCard = null;
+let secondCard = null;
 let noFlipping = false;
 let triesRemaining = 6; // set number of tries
 let winCounter = null; // update on each card match
